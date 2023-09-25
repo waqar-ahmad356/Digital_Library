@@ -1,0 +1,25 @@
+<!DOCTYPE html> <!-- Document type declaration for HTML5 -->
+<html lang="en"> <!-- Start of the HTML document with the English language specified -->
+<head>
+    <meta charset="UTF-8"> <!-- Character encoding declaration for UTF-8 -->
+    <title>Return {{ borrow_book.book.title }}</title> <!-- Page title with dynamic book title -->
+</head>
+<body>
+    <h1>Return {{ borrow_book.book.title }}</h1> <!-- Heading displaying the dynamic book title -->
+
+    <p>You are about to return the following book:</p> <!-- Text description -->
+
+    <h2>{{ borrow_record.book.title }}</h2> <!-- Sub-heading displaying the dynamic book title -->
+    <p>Author: {{ borrow_record.book.author }}</p> <!-- Paragraph displaying the book's author -->
+    <p>Description: {{ borrow_record.book.description }}</p> <!-- Paragraph displaying the book's description -->
+
+    <!-- Return Form -->
+    <form method="post" action="{% url 'return_book' borrow_record.pk %}">
+        {% csrf_token %} <!-- CSRF token to protect against cross-site request forgery -->
+        <button type="submit">Confirm Return</button> <!-- Submit button for confirming the return -->
+    </form>
+
+    <a href="{% url 'book_detail' borrow_record.book.pk %}">Cancel and Return to Book Details</a>
+    <!-- Link to return to the book details page with a dynamic URL -->
+</body>
+</html>

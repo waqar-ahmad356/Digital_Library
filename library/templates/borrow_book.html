@@ -1,0 +1,25 @@
+<!DOCTYPE html> <!-- Specifies the document type as HTML5 -->
+<html lang="en"> <!-- Defines the document's language as English -->
+<head>
+    <meta charset="UTF-8"> <!-- Specifies the character encoding for the document as UTF-8 -->
+    <title>{{book.title }} - Book Details</title> <!-- Sets the page title dynamically based on the book title -->
+</head>
+<body>
+<h1>{{book.title}} - Book Details</h1> <!-- Displays the book title along with "Book Details" as a level 1 heading -->
+<p>Book Author: {{book.author}}</p> <!-- Displays the book author's name -->
+<p>Book Description: {{book.description}}</p> <!-- Displays the book description -->
+
+<!-- Check Book Availability -->
+{% if book.available %}
+  <p>this book is available for borrowing</p> <!-- Displays a message indicating that the book is available -->
+  <form method="post" action="{% url 'borrow_book' book.pk %}">
+  {% csrf_token %} <!-- Includes a CSRF token to protect against cross-site request forgery attacks -->
+    <button type="submit">Borrow</button> <!-- Creates a button to submit a form to borrow the book -->
+  </form>
+{% else %}
+<p>Book is not available</p> <!-- Displays a message indicating that the book is not available -->
+{% endif %}
+<a href="{% url 'book_search' %}">Back to Search</a> <!-- Provides a link to return to the book search page -->
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Search</title>
+</head>
+<body>
+<h1>Book Search</h1>
+
+<!-- Start of Search Form -->
+<form method="get" action="{% url 'book_search' %}">
+    <!-- Label for the search input -->
+    <label for="search">Search for Books: </label>
+    <!-- Input field for the search query -->
+    <input type="text" id="search" name="q" value="{{request.GET.q}}">
+    <!-- Submit button to initiate the search -->
+    <button type="submit">Search</button>
+</form>
+<!-- End of Search Form -->
+
+<!-- Display Search Result -->
+{% if books %}
+    <!-- Heading for search results -->
+    <h2>Search Results:</h2>
+    <ul>
+        <!-- Loop through each book in the search results -->
+        {% for book in books %}
+            <li>
+                <!-- Display book title and author as a link to book details -->
+                <p><a href="{% url 'book_detail' book.pk %}">{{book.title}} by {{book.author}}</a></p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <!-- Message displayed when no books are found in the search -->
+    <p>No Book Found</p>
+{% endif %}
+</body>
+</html>

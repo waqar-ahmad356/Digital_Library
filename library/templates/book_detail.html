@@ -1,0 +1,23 @@
+<!DOCTYPE html> <!-- Document type declaration for HTML5 -->
+<html lang="en"> <!-- Opening HTML tag with language attribute set to English -->
+<head>
+    <meta charset="UTF-8"> <!-- Meta tag specifying character encoding -->
+    <title>Book Details</title> <!-- Title of the webpage -->
+</head>
+<body>
+<h1>Book Details</h1> <!-- Level 1 heading displaying "Book Details" -->
+<p>Book Title: {{book.title}}</p> <!-- Paragraph displaying the book title (placeholder) -->
+<p>Book Author: {{book.author}}</p> <!-- Paragraph displaying the book author (placeholder) -->
+<p>Book Description: {{book.description}}</p> <!-- Paragraph displaying the book description (placeholder) -->
+ {% if book.available %} <!-- Conditional block checking if the book is available -->
+        <p>This book is available for borrowing.</p> <!-- Displayed if the book is available -->
+        <form method="post" action="{% url 'borrow_book' book.pk %}"> <!-- Form for borrowing the book -->
+            {% csrf_token %} <!-- Include a CSRF token for security -->
+            <button type="submit">Borrow</button> <!-- Submit button for the form -->
+        </form>
+    {% else %}
+        <p>This book is currently unavailable for borrowing.</p> <!-- Displayed if the book is not available -->
+    {% endif %}
+<a href="{% url 'book_search' %}">Back to Search</a> <!-- Link to return to the book search page -->
+</body>
+</html>
